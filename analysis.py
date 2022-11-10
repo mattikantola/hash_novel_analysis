@@ -86,13 +86,14 @@ def main():
     first_book = read_book(f"../data_storage/{first_filename}")
     second_book = read_book(f"../data_storage/{second_filename}")
     reading_stop = datetime.now()
+    print(len(first_book), len(second_book))
     print(f"Reading took {(reading_stop-reading_start).microseconds} microseconds")
     guess = 8
     start = datetime.now()
     longest = analysis(first_book, second_book, guess)
     print(f"\"{longest}\"")
     end=datetime.now()
-    print(f"Analysis took {(end-start).microseconds} microseconds")
+    print(f"Analysis took {(end-start).seconds} seconds and {(end-start).microseconds} microseconds")
 
 if __name__ == "__main__":
  
