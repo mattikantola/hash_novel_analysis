@@ -80,15 +80,14 @@ def analysis(first, second, guess):
 
 def main():
 
-    first_filename, second_filename = sys.argv[1], sys.argv[2]
-
+    first_filename, second_filename, guess = sys.argv[1], sys.argv[2], sys.argv[3]
+    guess = int(guess)
     reading_start = datetime.now()
     first_book = read_book(f"../data_storage/{first_filename}")
     second_book = read_book(f"../data_storage/{second_filename}")
     reading_stop = datetime.now()
     print(len(first_book), len(second_book))
     print(f"Reading took {(reading_stop-reading_start).microseconds} microseconds")
-    guess = 16
     start = datetime.now()
     longest = analysis(first_book, second_book, guess)
     print(f"\"{longest}\"")
