@@ -88,7 +88,7 @@ def main():
     reading_stop = datetime.now()
     print(len(first_book), len(second_book))
     print(f"Reading took {(reading_stop-reading_start).microseconds} microseconds")
-    guess = 8
+    guess = 16
     start = datetime.now()
     longest = analysis(first_book, second_book, guess)
     print(f"\"{longest}\"")
