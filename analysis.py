@@ -1,4 +1,5 @@
 import re
+import sys
 from datetime import datetime
 
 def read_book(filename: str):
@@ -77,9 +78,11 @@ def analysis(first, second, guess):
 
 def main():
 
+    first_filename, second_filename = sys.argv[1], sys.argv[2]
+
     reading_start = datetime.now()
-    first_book = read_book("../data_storage/musketeers.txt.utf-8")
-    second_book = read_book("../data_storage/dracula.txt.utf-8")
+    first_book = read_book(f"../data_storage/{first_filename}")
+    second_book = read_book(f"../data_storage/{second_filename}")
     reading_stop = datetime.now()
     print(f"Reading took {(reading_stop-reading_start).microseconds} microseconds")
     guess = 8
