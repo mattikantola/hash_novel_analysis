@@ -1,16 +1,19 @@
 import re
 import sys
 from datetime import datetime
+import multiprocessing
 
 def read_book(filename: str):
 
     book = ""
 
+    whitespace = r'[\t\n]'
+
     with open(f"{filename}", mode='r', encoding = 'utf-8') as data:
 
         book = data.read()
 
-        book = re.sub('\t\n', " ", book)
+        book = re.sub(whitespace, " ", book)
 
     return book
 
@@ -87,7 +90,8 @@ def main():
     print(f"Reading took {(reading_stop-reading_start).microseconds} microseconds")
     guess = 8
     start = datetime.now()
-    print(f"\"{analysis(first_book, second_book, guess)}\"")
+    longest = analysis(first_book, second_book, guess)
+    print(f"\"{longest}\"")
     end=datetime.now()
     print(f"Analysis took {(end-start).microseconds} microseconds")
 
