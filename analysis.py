@@ -2,11 +2,22 @@ import re
 import sys
 from datetime import datetime
 
+'''
+The purpose of this program is to read two books into strings and compare their contents. It is done by hashing all their
+substrings of certain length and forming an interception so that the program knows which substrings are common and
+what are the start indices in both long strings. The longest one is easy to find when the books are real-world 
+examples, not like a million characters 'a' repeated. 
+'''
+
 def read_book(filename: str):
+
+    '''
+    Reads a book and filters the white space
+    '''
 
     book = ""
 
-    whitespace = r'[\t\n]'
+    whitespace = r'[\n\t]' 
 
     with open(f"{filename}", mode='r', encoding = 'utf-8') as data:
 
@@ -16,28 +27,38 @@ def read_book(filename: str):
 
     return book
 
-def suffix(string, guess):
+def prefix(string, guess):
 
-    suffix_table = {}
+    '''
+    params guess: the length of all the substrings in the result dictionary
+    This procedure gives all the guess-length slices of the string. The start index of every instance
+    is recorded.
+    '''
+
+    prefix_table = {}
 
     for iii in range(0, len(string)-guess):
 
         candidate = string[iii:iii+guess]
 
-        if candidate not in suffix_table:
+        if candidate not in prefix_table:
 
-            suffix_table[candidate] = [iii]
+            prefix_table[candidate] = [iii]
 
         else:
 
-            suffix_table[candidate].append(iii)
+            prefix_table[candidate].append(iii)
 
-    return suffix_table
+    return prefix_table
 
 def common_words(first, second, guess):
 
-    first_table = suffix(first, guess)
-    second_table = suffix(second, guess)
+    '''
+    Uses the prefix function and finds the common slices and records their start indices
+    '''
+
+    first_table = prefix(first, guess)
+    second_table = prefix(second, guess)
 
     common = {}
 
@@ -59,6 +80,12 @@ def analysis(first, second, guess):
 
     longest_suffix = 0
     longest = ""
+
+    '''
+    Once the common words are found, all the start indices in both books are checked for matches. This doesn't
+    actually take too much time, because if the guess is made properly, there are not too many matches and so
+    the check is faster than it seems.
+    '''
 
     for index_list_pair in common.values():
 
